@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">weebchat</string>
+    <string name="title">Weebchat</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
+    <string name="cd_umaru">its umaru my guy</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="name">Name</string>
 </resources>
