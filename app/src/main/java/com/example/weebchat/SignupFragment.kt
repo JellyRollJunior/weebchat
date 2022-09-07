@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.weebchat.databinding.FragmentSignupBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SignupFragment : Fragment() {
 
     private lateinit var binding: FragmentSignupBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
     }
 
     override fun onCreateView(
@@ -33,5 +38,40 @@ class SignupFragment : Fragment() {
 
     fun signup() {
         Toast.makeText(context, "you signed up", Toast.LENGTH_SHORT).show()
+        val name = binding.nameInputEditText.text.toString()
+        val email = binding.emailInputEditText.text.toString()
+        val password = binding.passwordInputEditText.text.toString()
+        val confirmPassword = binding.confirmPasswordInputEditText.text.toString()
+
+        if (password == confirmPassword) {
+            // sign up
+            setErrorTextField(false)
+            // use requireActivity() instead of this since we are in a fragment, not an activity
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+
+                    } else {
+
+                    }
+                }
+        } else {
+            // return UI error
+            setErrorTextField(true)
+        }
+    }
+
+    private fun setErrorTextField(error: Boolean) {
+        if (error) {
+            binding.passwordTextField.isErrorEnabled = true
+            binding.passwordTextField.error = getString(R.string.passwords_do_not_match)
+            binding.confirmPasswordTextField.isErrorEnabled = true
+        } else {
+            binding.passwordTextField.isErrorEnabled = false
+            binding.confirmPasswordTextField.isErrorEnabled = false
+        }
     }
 }
+
+
+

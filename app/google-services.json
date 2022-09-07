@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "744750716845",
+    "project_id": "weebchat-4ebab",
+    "storage_bucket": "weebchat-4ebab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744750716845:android:8dcd6c3f6f6c503e01b324",
+        "android_client_info": {
+          "package_name": "com.example.weebchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "744750716845-q2qpsq3opcnvkvh3hdpdq9g53igabmi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUovL5lnxcG3hspdULEesMd7PeW5EpZAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "744750716845-q2qpsq3opcnvkvh3hdpdq9g53igabmi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

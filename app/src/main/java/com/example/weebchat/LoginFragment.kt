@@ -9,14 +9,17 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.weebchat.databinding.FragmentLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
     }
 
     override fun onCreateView(
@@ -34,7 +37,10 @@ class LoginFragment : Fragment() {
     }
 
     fun login() {
-        Toast.makeText(context, "you logged in", Toast.LENGTH_SHORT).show()
+        // Toast.makeText(context, "you logged in", Toast.LENGTH_SHORT).show()
+        val email: String = binding.emailInputEditText.text.toString()
+        val password: String = binding.passwordInputEditText.text.toString()
+        // login firebase user
     }
 
     fun signup() {
