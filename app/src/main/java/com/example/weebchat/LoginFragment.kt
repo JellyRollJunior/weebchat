@@ -40,7 +40,18 @@ class LoginFragment : Fragment() {
         // Toast.makeText(context, "you logged in", Toast.LENGTH_SHORT).show()
         val email: String = binding.emailInputEditText.text.toString()
         val password: String = binding.passwordInputEditText.text.toString()
+
         // login firebase user
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(requireActivity(), "Login successful", Toast.LENGTH_SHORT).show()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(requireActivity(), "Incorrect credentials entered!", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     fun signup() {

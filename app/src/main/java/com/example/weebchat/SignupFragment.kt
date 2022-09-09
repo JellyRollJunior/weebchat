@@ -37,7 +37,6 @@ class SignupFragment : Fragment() {
     }
 
     fun signup() {
-        Toast.makeText(context, "you signed up", Toast.LENGTH_SHORT).show()
         val name = binding.nameInputEditText.text.toString()
         val email = binding.emailInputEditText.text.toString()
         val password = binding.passwordInputEditText.text.toString()
@@ -50,9 +49,12 @@ class SignupFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
+                        // move to new activity
+                        Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
 
                     } else {
-
+                        // show error
+                        Toast.makeText(requireActivity(), "Error signing up occurred", Toast.LENGTH_SHORT).show()
                     }
                 }
         } else {
