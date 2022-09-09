@@ -10,4 +10,5 @@
     <string name="name">Name</string>
     <string name="sign_up">Sign Up</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="select_photo">Select\nphoto</string>
 </resources>
