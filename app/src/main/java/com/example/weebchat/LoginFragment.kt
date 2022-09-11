@@ -1,26 +1,18 @@
 package com.example.weebchat
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.weebchat.databinding.FragmentLoginBinding
-import com.google.firebase.auth.FirebaseAuth
-
+import com.example.weebchat.helpers.FirebaseHelper
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = FirebaseAuth.getInstance()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,21 +29,11 @@ class LoginFragment : Fragment() {
     }
 
     fun login() {
-        // Toast.makeText(context, "you logged in", Toast.LENGTH_SHORT).show()
         val email: String = binding.emailInputEditText.text.toString()
         val password: String = binding.passwordInputEditText.text.toString()
 
         // login firebase user
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(requireActivity(), "Login successful", Toast.LENGTH_SHORT).show()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(requireActivity(), "Incorrect credentials entered!", Toast.LENGTH_SHORT).show()
-                }
-            }
+        FirebaseHelper.loginUser(requireActivity(), email, password)
     }
 
     fun signup() {

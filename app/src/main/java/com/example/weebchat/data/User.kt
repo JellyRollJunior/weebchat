@@ -1,4 +1,4 @@
-package com.example.weebchat.model
+package com.example.weebchat.data
 
 class User {
     var name: String? = null
