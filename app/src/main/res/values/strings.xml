@@ -11,4 +11,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="select_photo">Select\nphoto</string>
+    <string name="cd_select_profile_photo">Select profile photo button</string>
 </resources>

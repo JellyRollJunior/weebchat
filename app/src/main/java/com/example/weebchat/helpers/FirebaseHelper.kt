@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
-class FirebaseHelper() {
+class FirebaseHelper {
 
     companion object {
         private const val logTAG = "Firebase Helper"

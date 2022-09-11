@@ -32,7 +32,6 @@ class LoginFragment : Fragment() {
         val email: String = binding.emailInputEditText.text.toString()
         val password: String = binding.passwordInputEditText.text.toString()
 
-        // login firebase user
         FirebaseHelper.loginUser(requireActivity(), email, password)
     }
 

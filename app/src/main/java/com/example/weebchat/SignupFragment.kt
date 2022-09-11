@@ -3,6 +3,7 @@ package com.example.weebchat
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.weebchat.databinding.FragmentSignupBinding
 import com.example.weebchat.helpers.FirebaseHelper
+
 
 class SignupFragment : Fragment() {
 
@@ -35,6 +37,7 @@ class SignupFragment : Fragment() {
     }
 
     fun getPhotoFromGallery() {
+        // honestly this is kinda hacky creating an intent to check if thers a gallery but not sure how to do this normally
         val intent = Intent(Intent.ACTION_GET_CONTENT) .setType("image/*")
         // launch gallery intent if there exists an gallery app
         if (activity?.packageManager?.resolveActivity(intent, 0) != null) {
@@ -48,7 +51,15 @@ class SignupFragment : Fragment() {
         uri?.let {
             Log.d(logTAG, "Selected photo Uri is set")
             selectedPhotoUri = uri
+            updateUi()
         }
+    }
+
+    private fun updateUi() {
+
+        val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, selectedPhotoUri)
+        binding.selectPhotoBtn.setImageBitmap(bitmap)
+        binding.selectPhotoText.visibility = View.INVISIBLE
     }
 
     fun signup() {
@@ -61,7 +72,6 @@ class SignupFragment : Fragment() {
             Toast.makeText(requireActivity(), "Please enter a name, email, password, and profile photo", Toast.LENGTH_SHORT).show()
             return
         } else if (password == confirmPassword) {
-            // sign up
             setErrorTextField(false)
             // use requireActivity() instead of this since we are in a fragment, not an activity
             FirebaseHelper.createUser(requireActivity(), name, email, password, selectedPhotoUri)

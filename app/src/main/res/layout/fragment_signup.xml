@@ -29,26 +29,40 @@
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     app:cardCornerRadius="90dp"
-                    app:strokeColor="@color/black"
+                    app:strokeColor="@color/purple_500"
                     app:strokeWidth="2dp"
                     android:layout_gravity="center_horizontal">
 
-                    <ImageButton
-                        android:id="@+id/select_photo_btn"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/rounded_button"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_height="match_parent" >
 
-                        android:onClick="@{() -> signupFragment.getPhotoFromGallery()}"
-                        android:text="@string/select_photo" />
+                        <ImageButton
+                            android:id="@+id/select_photo_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rounded_button"
+                            android:scaleType="centerCrop"
+                            android:layout_gravity="center"
+
+                            android:onClick="@{() -> signupFragment.getPhotoFromGallery()}"
+                            android:text="@string/select_photo"
+                            android:contentDescription="@string/cd_select_profile_photo" />
+
+                        <TextView
+                            android:id="@+id/select_photo_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:focusable="false"
+                            android:text="@string/select_photo"
+
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
 
                 </com.google.android.material.card.MaterialCardView>
-
-                <ImageView
-                    android:id="@+id/test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="wrap_content"
