@@ -3,6 +3,7 @@ package com.example.weebchat
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -18,6 +19,8 @@ import com.example.weebchat.databinding.FragmentSignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.util.*
 
 class SignupFragment : Fragment() {
 
@@ -45,25 +48,42 @@ class SignupFragment : Fragment() {
     }
 
     fun uploadPhoto() {
-        val intent = Intent(Intent.ACTION_PICK)
-            .setType("image/*")
+        val intent = Intent(Intent.ACTION_GET_CONTENT) .setType("image/*")
         // launch gallery intent if there exists an gallery app
         if (activity?.packageManager?.resolveActivity(intent, 0) != null) {
             Log.d(logTAG, "Upload photo implicit intent launched")
-            startForResult.launch(intent)
+            startForResult.launch("image/*")
         }
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                // Handle the Intent
-                val uri = result.data!!.data
-                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+    var selectedPhotoUri: Uri? = null
 
-                //do stuff here
-                val bitmapDrawable = BitmapDrawable(bitmap)
-                binding.test.setImageDrawable(bitmapDrawable)
+    private val startForResult = registerForActivityResult(
+        ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+                Log.d(logTAG, "idk whats going on")
+                selectedPhotoUri = uri
+            }
+
+    }
+
+    private fun uploadImageToFirebaseStorage() {
+        Log.d(logTAG, "at least im here")
+        if (selectedPhotoUri == null) {
+            Log.d(logTAG, "its null")
+            return
+        }
+        Log.d(logTAG, "at least im here again")
+        // creates a random string name for the file
+        val filename = UUID.randomUUID().toString()
+        val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
+        ref.putFile(selectedPhotoUri!!)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    Log.d(logTAG, "Successfully uploaded image: $filename")
+                } else {
+                    Log.d(logTAG, "Upload image unsuccessful: $filename")
+                }
             }
     }
 
@@ -87,7 +107,7 @@ class SignupFragment : Fragment() {
                     if (task.isSuccessful) {
                         // move to new activity
                         Toast.makeText(requireActivity(), "Sign up successful", Toast.LENGTH_SHORT).show()
-
+                        uploadImageToFirebaseStorage()
                     } else {
                         // show error
                         Toast.makeText(requireActivity(), "Error signing up occurred", Toast.LENGTH_SHORT).show()
