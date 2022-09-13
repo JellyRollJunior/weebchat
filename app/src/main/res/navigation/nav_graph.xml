@@ -18,9 +18,12 @@
         <action
             android:id="@+id/action_loginFragment_to_latestMessagesFragment"
             app:destination="@id/latestMessagesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.weebchat.SignupFragment"
@@ -29,17 +32,24 @@
         <action
             android:id="@+id/action_signupFragment_to_latestMessagesFragment"
             app:destination="@id/latestMessagesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
     </fragment>
+
     <fragment
         android:id="@+id/latestMessagesFragment"
         android:name="com.example.weebchat.LatestMessagesFragment"
-        android:label="LatestMessagesFragment" >
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_latest_messages" >
         <action
             android:id="@+id/action_latestMessagesFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/latestMessagesFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
+
 </navigation>

@@ -2,27 +2,34 @@ package com.example.weebchat
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.weebchat.databinding.FragmentLatestMessagesBinding
 import com.example.weebchat.helpers.FirebaseHelper
 
 class LatestMessagesFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-
-        if (!FirebaseHelper.isLoggedIn()) {
-            findNavController().navigate(R.id.action_latestMessagesFragment_to_loginFragment)
-        }
-    }
+    private val logTag = "Latest Messages Fragment"
+    private lateinit var binding: FragmentLatestMessagesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_latest_messages, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_latest_messages, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.latestMessagesFragment = this
+        setHasOptionsMenu(true)
+
+        if (!FirebaseHelper.isLoggedIn()) {
+            findNavController().navigate(R.id.action_latestMessagesFragment_to_loginFragment)
+        }
     }
 
 
@@ -38,10 +45,11 @@ class LatestMessagesFragment : Fragment() {
             R.id.sign_out_menu_btn -> {
                 FirebaseHelper.signOut()
                 findNavController().navigate(R.id.action_latestMessagesFragment_to_loginFragment)
-                return true
+                true
             }
             R.id.new_message_menu_btn -> {
-                return true
+                // navigate to create new message fragment
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

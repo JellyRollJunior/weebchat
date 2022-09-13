@@ -75,8 +75,6 @@ class SignupFragment : Fragment() {
             setErrorTextField(false)
             // use requireActivity() instead of this since we are in a fragment, not an activity
             FirebaseHelper.createUser(requireActivity(), name, email, password, selectedPhotoUri)
-
-            // launch latest activities
             navigateToLatestMessages()
         } else {
             // return UI error
@@ -97,6 +95,9 @@ class SignupFragment : Fragment() {
 
     private fun navigateToLatestMessages() {
         // clear activity stack
+
+        // WAIT FOR DATABASE TO UPDATE... FIND A SOLUTION FOR THIS LOL
+        Thread.sleep(3000)
         findNavController().navigate(R.id.action_signupFragment_to_latestMessagesFragment)
     }
 }
