@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.weebchat.databinding.FragmentSignupBinding
 import com.example.weebchat.helpers.FirebaseHelper
 
@@ -56,7 +57,6 @@ class SignupFragment : Fragment() {
     }
 
     private fun updateUi() {
-
         val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, selectedPhotoUri)
         binding.selectPhotoBtn.setImageBitmap(bitmap)
         binding.selectPhotoText.visibility = View.INVISIBLE
@@ -75,6 +75,9 @@ class SignupFragment : Fragment() {
             setErrorTextField(false)
             // use requireActivity() instead of this since we are in a fragment, not an activity
             FirebaseHelper.createUser(requireActivity(), name, email, password, selectedPhotoUri)
+
+            // launch latest activities
+            navigateToLatestMessages()
         } else {
             // return UI error
             setErrorTextField(true)
@@ -90,6 +93,11 @@ class SignupFragment : Fragment() {
             binding.passwordTextField.isErrorEnabled = false
             binding.confirmPasswordTextField.isErrorEnabled = false
         }
+    }
+
+    private fun navigateToLatestMessages() {
+        // clear activity stack
+        findNavController().navigate(R.id.action_signupFragment_to_latestMessagesFragment)
     }
 }
 

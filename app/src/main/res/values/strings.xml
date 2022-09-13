@@ -12,4 +12,8 @@
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="select_photo">Select\nphoto</string>
     <string name="cd_select_profile_photo">Select profile photo button</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_new_message">Create New Message</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

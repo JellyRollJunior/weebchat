@@ -16,6 +16,11 @@ class FirebaseHelper {
         private const val logTAG = "Firebase Helper"
         private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+        fun isLoggedIn(): Boolean {
+            auth.uid ?: return false
+            return true
+        }
+
         fun loginUser(activity: Activity, email: String, password: String) {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity) { task ->
@@ -76,6 +81,10 @@ class FirebaseHelper {
                         Log.d(logTAG, "User could not be saved to database")
                     }
                 }
+        }
+
+        fun signOut() {
+            auth.signOut()
         }
     }
 }

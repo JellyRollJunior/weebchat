@@ -33,6 +33,7 @@ class LoginFragment : Fragment() {
         val password: String = binding.passwordInputEditText.text.toString()
 
         FirebaseHelper.loginUser(requireActivity(), email, password)
+        findNavController().navigate(R.id.action_loginFragment_to_latestMessagesFragment)
     }
 
     fun signup() {
