@@ -17,4 +17,5 @@
     <string name="create_new_message">Create New Message</string>
     <string name="sign_out">Sign Out</string>
     <string name="messages">Messages</string>
+    <string name="select_user">Select User</string>
 </resources>

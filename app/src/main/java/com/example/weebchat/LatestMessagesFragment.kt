@@ -48,7 +48,7 @@ class LatestMessagesFragment : Fragment() {
                 true
             }
             R.id.new_message_menu_btn -> {
-                // navigate to create new message fragment
+                findNavController().navigate(R.id.action_latestMessagesFragment_to_newMessageFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)

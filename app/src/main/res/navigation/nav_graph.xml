@@ -50,6 +50,17 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/latestMessagesFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_latestMessagesFragment_to_newMessageFragment"
+            app:destination="@id/newMessageFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/newMessageFragment"
+        android:name="com.example.weebchat.NewMessageFragment"
+        android:label="@string/select_user"
+        tools:layout="@layout/fragment_new_message"/>
 
 </navigation>
