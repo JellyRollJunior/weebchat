@@ -22,4 +22,5 @@
             tools:listitem="@layout/new_message_list_item"/>
 
     </FrameLayout>
+
 </layout>

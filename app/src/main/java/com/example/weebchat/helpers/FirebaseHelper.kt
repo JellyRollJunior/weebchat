@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.weebchat.data.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
@@ -74,6 +75,10 @@ class FirebaseHelper {
                 .addOnFailureListener {
                     Log.d(logTAG, "User could not be saved to database")
                 }
+        }
+
+        fun getUserRef(): DatabaseReference  {
+            return FirebaseDatabase.getInstance().getReference("/users")
         }
 
         fun signOut() {
