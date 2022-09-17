@@ -20,6 +20,7 @@
             android:background="@color/pale_orange"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
+            android:padding="@dimen/base_margin"
             android:layout_marginBottom="@dimen/base_margin"
             app:layout_constraintBottom_toTopOf="@+id/text_input"
             app:layout_constraintEnd_toEndOf="parent"

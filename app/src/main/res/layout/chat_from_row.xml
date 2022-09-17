@@ -13,8 +13,8 @@
         app:strokeColor="@color/Light_blue"
         app:strokeWidth="2dp"
 
-        android:layout_marginTop="@dimen/item_margin"
-        android:layout_marginStart="@dimen/item_margin"
+        android:layout_marginTop="@dimen/base_margin"
+        android:layout_marginStart="@dimen/base_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -34,6 +34,7 @@
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/most_lightest_blue"
 
+
         android:layout_marginStart="@dimen/base_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/from_card_view"
@@ -44,10 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="200dp"
-
+            android:minHeight="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:padding="4dp"
+            android:gravity="center_vertical"
+
             android:text="OK GUYS THIS IS TO TEST THE WRAPPING ON THE TEXT VIEW TO SEE HOW FAR IT WILL GO LETS GO LETS GO GUYS LIFE FUCKING SUCKS ASS"
             android:textSize="@dimen/chat_text_size" />
 

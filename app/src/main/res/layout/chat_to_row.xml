@@ -13,8 +13,8 @@
         app:strokeColor="@color/Light_blue"
         app:strokeWidth="2dp"
 
-        android:layout_marginTop="@dimen/item_margin"
-        android:layout_marginEnd="@dimen/item_margin"
+        android:layout_marginTop="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -44,6 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="200dp"
+            android:minHeight="40dp"
+            android:gravity="center_vertical"
 
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -52,7 +54,5 @@
             android:textSize="@dimen/chat_text_size" />
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
