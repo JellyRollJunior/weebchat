@@ -4,4 +4,5 @@
     <dimen name="base_margin">8dp</dimen>
     <dimen name="item_margin">16dp</dimen>
     <dimen name="item_text_size">20sp</dimen>
+    <dimen name="chat_text_size">16sp</dimen>
 </resources>

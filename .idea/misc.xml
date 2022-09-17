@@ -10,8 +10,9 @@
         <entry key="app/src/main/res/layout-v26/chat_log_from_row.xml" value="0.22282608695652173" />
         <entry key="app/src/main/res/layout-v26/fragment_login.xml" value="0.22644927536231885" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20697463768115942" />
-        <entry key="app/src/main/res/layout/chat_from_row.xml" value="0.22282608695652173" />
+        <entry key="app/src/main/res/layout/chat_from_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/chat_log_from_row.xml" value="0.22282608695652173" />
+        <entry key="app/src/main/res/layout/chat_to_row.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_chat_log.xml" value="0.22282608695652173" />
         <entry key="app/src/main/res/layout/fragment_latest_messages.xml" value="0.22644927536231885" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.20697463768115942" />
