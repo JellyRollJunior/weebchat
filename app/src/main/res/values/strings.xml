@@ -19,4 +19,7 @@
     <string name="messages">Messages</string>
     <string name="select_user">Select User</string>
     <string name="cd_profile_photo">profile photo</string>
+    <string name="cd_send_button">Send button</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="cd_from_photo">sender profile photo</string>
 </resources>

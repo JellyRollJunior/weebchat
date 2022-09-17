@@ -6,10 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/profile_card_view"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:cardCornerRadius="35dp"
+        android:id="@+id/from_card_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/Light_blue"
@@ -19,26 +19,29 @@
         android:layout_marginStart="@dimen/item_margin">
 
         <ImageView
-            android:id="@+id/profile_image_view"
+            android:id="@+id/from_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/cd_profile_photo"
+            android:contentDescription="@string/cd_from_photo"
             android:scaleType="centerCrop"
             tools:src="@drawable/umaru_goggles" />
 
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/name_text_view"
+        android:id="@+id/from_text_view"
         android:layout_width="wrap_content"
+        android:maxWidth="240dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/item_text_size"
         android:textStyle="bold"
-        tools:text="Umaru Doma"
+        tools:text="OK GUYS THIS IS TO TEST THE WRAPPING ON THE TEXT VIEW TO SEE HOW FAR IT WILL GO LETS GO LETS GO GUYS LIFE FUCKING SUCKS ASS"
 
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_card_view"
-        app:layout_constraintStart_toEndOf="@+id/profile_card_view"
-        app:layout_constraintTop_toTopOf="@+id/profile_card_view" />
+        android:padding="@dimen/item_margin"
+        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/from_card_view"
+        app:layout_constraintStart_toEndOf="@+id/from_card_view"
+        app:layout_constraintTop_toTopOf="@+id/from_card_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

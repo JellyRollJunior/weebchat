@@ -55,12 +55,31 @@
             app:destination="@id/newMessageFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_latestMessagesFragment_to_chatLogFragment"
+            app:destination="@id/chatLogFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/newMessageFragment"
         android:name="com.example.weebchat.NewMessageFragment"
         android:label="@string/select_user"
-        tools:layout="@layout/fragment_new_message"/>
+        tools:layout="@layout/fragment_new_message">
+        <action
+            android:id="@+id/action_newMessageFragment_to_chatLogFragment"
+            app:destination="@id/chatLogFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/newMessageFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatLogFragment"
+        android:name="com.example.weebchat.ChatLogFragment"
+        android:label="chat log"
+        tools:layout="@layout/fragment_chat_log" />
 
 </navigation>

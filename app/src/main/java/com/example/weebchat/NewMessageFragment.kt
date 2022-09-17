@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.weebchat.data.User
 import com.example.weebchat.databinding.FragmentNewMessageBinding
 import com.example.weebchat.helpers.FirebaseHelper
@@ -41,14 +42,10 @@ class NewMessageFragment : Fragment() {
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val adapter = GroupieAdapter()
-                // populate user data into adapter
-                for (child in snapshot.children) {
-                    Log.d(logTAG, child.toString())
-                    val user = child.getValue(User::class.java)
-                    if (user != null) {
-                        adapter.add(UserItem(user))
-                    }
+                val adapter = populateAdapter(snapshot)
+                adapter.setOnItemClickListener { item, view ->
+
+                    findNavController().navigate(R.id.action_newMessageFragment_to_chatLogFragment)
                 }
                 binding.newMessageRv.adapter = adapter
             }
@@ -56,5 +53,17 @@ class NewMessageFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+
+    private fun populateAdapter(snapshot: DataSnapshot): GroupieAdapter {
+        val adapter = GroupieAdapter()
+        for (child in snapshot.children) {
+            Log.d(logTAG, child.toString())
+            val user = child.getValue(User::class.java)
+            if (user != null) {
+                adapter.add(UserItem(user))
+            }
+        }
+        return adapter
     }
 }
