@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -16,6 +17,10 @@ class FirebaseHelper {
     companion object {
         private const val logTAG = "Firebase Helper"
         private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+        fun getUid(): String {
+            return auth.uid.toString()
+        }
 
         fun isLoggedIn(): Boolean {
             auth.uid ?: return false
@@ -77,8 +82,34 @@ class FirebaseHelper {
                 }
         }
 
+        fun saveMessage(messageText: String, receiverUid: String) {
+            val ref = getMessagesRefPush()
+
+            // send to firebase storage
+            val message = ChatMessage(
+                ref.key!!,
+                messageText,
+                getUid(),
+                receiverUid,
+                System.currentTimeMillis()
+            )
+            ref.setValue(message)
+                .addOnSuccessListener {
+                    Log.d(logTAG, "Saved our chat message: ${ref.key}")
+                }
+        }
+
         fun getUserRef(): DatabaseReference  {
             return FirebaseDatabase.getInstance().getReference("/users")
+        }
+        fun getMessagesRef(): DatabaseReference {
+            // push creates a new node in the database /messages/newNodeID
+            return FirebaseDatabase.getInstance().getReference("/messages")
+        }
+
+        fun getMessagesRefPush(): DatabaseReference {
+            // push creates a new node in the database /messages/newNodeID
+            return FirebaseDatabase.getInstance().getReference("/messages").push()
         }
 
         fun signOut() {

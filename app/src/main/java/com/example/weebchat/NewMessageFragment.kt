@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weebchat.data.User
 import com.example.weebchat.databinding.FragmentNewMessageBinding
 import com.example.weebchat.helpers.FirebaseHelper
 import com.example.weebchat.itemholders.UserItem
+import com.example.weebchat.model.ReceiverViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -21,6 +23,7 @@ class NewMessageFragment : Fragment() {
 
     private val logTAG = "New Message Fragment"
     private lateinit var binding: FragmentNewMessageBinding
+    private val sharedViewModel: ReceiverViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +42,15 @@ class NewMessageFragment : Fragment() {
 
     private fun instantiateRecyclerView() {
         val ref = FirebaseHelper.getUserRef()
+        // this listener listens once
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val adapter = populateAdapter(snapshot)
                 adapter.setOnItemClickListener { item, view ->
 
+                    val userItem = item as UserItem
+                    sharedViewModel.setReceiver(userItem.user)
                     findNavController().navigate(R.id.action_newMessageFragment_to_chatLogFragment)
                 }
                 binding.newMessageRv.adapter = adapter

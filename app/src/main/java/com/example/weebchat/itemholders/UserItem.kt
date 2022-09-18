@@ -8,7 +8,7 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
-class UserItem(private val user: User) : Item<GroupieViewHolder>() {
+class UserItem(val user: User) : Item<GroupieViewHolder>() {
 
     override fun getLayout() = R.layout.new_message_list_item
 
