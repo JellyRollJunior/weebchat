@@ -7,8 +7,7 @@ import android.widget.Toast
 import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.data.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
@@ -102,12 +101,17 @@ class FirebaseHelper {
         fun getUserRef(): DatabaseReference  {
             return FirebaseDatabase.getInstance().getReference("/users")
         }
+
+        fun getCurrentUserRef(): DatabaseReference {
+            return FirebaseDatabase.getInstance().getReference("/users/${getUid()}")
+        }
+
         fun getMessagesRef(): DatabaseReference {
             // push creates a new node in the database /messages/newNodeID
             return FirebaseDatabase.getInstance().getReference("/messages")
         }
 
-        fun getMessagesRefPush(): DatabaseReference {
+        private fun getMessagesRefPush(): DatabaseReference {
             // push creates a new node in the database /messages/newNodeID
             return FirebaseDatabase.getInstance().getReference("/messages").push()
         }

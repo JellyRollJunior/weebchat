@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/from_card_view"
+        android:id="@+id/user_card_view"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:cardCornerRadius="25dp"
@@ -14,12 +14,12 @@
         app:strokeWidth="2dp"
 
         android:layout_marginTop="@dimen/base_margin"
-        android:layout_marginStart="@dimen/base_margin"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/base_margin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/from_image_view"
+            android:id="@+id/user_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/cd_from_photo"
@@ -34,24 +34,23 @@
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/most_lightest_blue"
 
-
-        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/from_card_view"
-        app:layout_constraintTop_toTopOf="@+id/from_card_view">
+        app:layout_constraintEnd_toStartOf="@+id/user_card_view"
+        app:layout_constraintTop_toTopOf="@+id/user_card_view">
 
         <TextView
-            android:id="@+id/from_text_view"
+            android:id="@+id/user_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="200dp"
             android:minHeight="40dp"
+            android:gravity="center_vertical"
+
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:padding="4dp"
-            android:gravity="center_vertical"
-
-            android:text="OK GUYS THIS IS TO TEST THE WRAPPING ON THE TEXT VIEW TO SEE HOW FAR IT WILL GO LETS GO LETS GO GUYS LIFE FUCKING SUCKS ASS"
+            tools:text="OK GUYS THIS"
             android:textSize="@dimen/chat_text_size" />
 
     </com.google.android.material.card.MaterialCardView>

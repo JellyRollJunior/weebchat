@@ -13,7 +13,7 @@ import com.example.weebchat.data.User
 import com.example.weebchat.databinding.FragmentNewMessageBinding
 import com.example.weebchat.helpers.FirebaseHelper
 import com.example.weebchat.itemholders.UserItem
-import com.example.weebchat.model.ReceiverViewModel
+import com.example.weebchat.model.UserViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -23,7 +23,7 @@ class NewMessageFragment : Fragment() {
 
     private val logTAG = "New Message Fragment"
     private lateinit var binding: FragmentNewMessageBinding
-    private val sharedViewModel: ReceiverViewModel by activityViewModels()
+    private val sharedViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

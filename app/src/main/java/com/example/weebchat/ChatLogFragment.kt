@@ -14,7 +14,7 @@ import com.example.weebchat.databinding.FragmentChatLogBinding
 import com.example.weebchat.helpers.FirebaseHelper
 import com.example.weebchat.itemholders.ChatOtherItem
 import com.example.weebchat.itemholders.ChatUserItem
-import com.example.weebchat.model.ReceiverViewModel
+import com.example.weebchat.model.UserViewModel
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,7 +24,7 @@ class ChatLogFragment : Fragment() {
 
     private val logTAG = "Chat Log Fragment"
     private lateinit var binding: FragmentChatLogBinding
-    private val sharedViewModel: ReceiverViewModel by activityViewModels()
+    private val sharedViewModel: UserViewModel by activityViewModels()
     private val adapter = GroupieAdapter()
 
     override fun onCreateView(
@@ -70,9 +70,9 @@ class ChatLogFragment : Fragment() {
 
         if (text != null) {
             if (chatMessage.fromId == currentUserUid) {
-                adapter.add(ChatUserItem(text))
+                adapter.add(ChatUserItem(text, sharedViewModel.currentUser.value!!))
             } else {
-                adapter.add(ChatOtherItem(text))
+                adapter.add(ChatOtherItem(text, sharedViewModel.receiver.value!!))
             }
         }
     }
@@ -95,5 +95,6 @@ class ChatLogFragment : Fragment() {
         }
 
         binding.textInput.text.clear()
+        binding.chatLogRv.scrollToPosition(adapter.itemCount)
     }
 }
