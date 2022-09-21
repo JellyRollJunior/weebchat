@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.databinding.FragmentChatLogBinding
 import com.example.weebchat.helpers.FirebaseHelper
@@ -67,9 +68,7 @@ class ChatLogFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) {}
             })
         }
-
         binding.chatLogRv.adapter = adapter
-        scrollToBottom()
     }
 
     private fun populateAdapter(snapshot: DataSnapshot){
@@ -79,9 +78,9 @@ class ChatLogFragment : Fragment() {
 
         if (text != null) {
             if (chatMessage.fromId == currentUserUid) {
-                adapter.add(ChatUserItem(text, sharedViewModel.currentUser.value!!))
+                adapter.add(0, ChatUserItem(text, sharedViewModel.currentUser.value!!))
             } else {
-                adapter.add(ChatOtherItem(text, sharedViewModel.otherUser.value!!))
+                adapter.add(0, ChatOtherItem(text, sharedViewModel.otherUser.value!!))
             }
         }
     }
@@ -96,13 +95,16 @@ class ChatLogFragment : Fragment() {
     fun sendMessage() {
         // grab message from et
         val messageText = binding.textInput.text.toString()
-        val currentUserUid = sharedViewModel.currentUser.value?.uid
-        val otherUserUid = sharedViewModel.otherUser.value?.uid
 
-        // send to firebase storage
-        if (!currentUserUid.isNullOrEmpty() && !otherUserUid.isNullOrEmpty() ) {
-            FirebaseHelper.saveMessage(messageText, currentUserUid, otherUserUid)
+        if (messageText.isNotBlank()) {
+            val currentUserUid = sharedViewModel.currentUser.value?.uid
+            val otherUserUid = sharedViewModel.otherUser.value?.uid
 
+            // send to firebase storage
+            if (!currentUserUid.isNullOrEmpty() && !otherUserUid.isNullOrEmpty()) {
+                FirebaseHelper.saveMessage(messageText, currentUserUid, otherUserUid)
+
+            }
         }
         clearMessage()
         scrollToBottom()
@@ -113,6 +115,6 @@ class ChatLogFragment : Fragment() {
     }
 
     private fun scrollToBottom() {
-        binding.chatLogRv.scrollToPosition(adapter.itemCount)
+        binding.chatLogRv.scrollToPosition(0)
     }
 }
