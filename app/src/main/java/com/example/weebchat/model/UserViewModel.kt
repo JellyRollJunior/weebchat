@@ -10,14 +10,14 @@ class UserViewModel : ViewModel() {
     private val _currentUser = MutableLiveData<User>()
     val currentUser: LiveData<User> = _currentUser
 
-    private val _receiver = MutableLiveData<User>()
-    val receiver: LiveData<User> = _receiver
+    private val _otherUser = MutableLiveData<User>()
+    val otherUser: LiveData<User> = _otherUser
 
     fun setCurrentUser(currentUser: User) {
         _currentUser.value = currentUser
     }
 
     fun setReceiver(receiver: User) {
-        _receiver.value = receiver
+        _otherUser.value = receiver
     }
 }

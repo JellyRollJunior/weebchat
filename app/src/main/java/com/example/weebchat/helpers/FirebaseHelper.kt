@@ -81,14 +81,13 @@ class FirebaseHelper {
                 }
         }
 
-        fun saveMessage(messageText: String, receiverUid: String) {
-            val ref = getMessagesRefPush()
-
+        fun saveMessage(messageText: String, senderUid: String, receiverUid: String) {
+            val ref = getMessagesRefPush(senderUid, receiverUid)
             // send to firebase storage
             val message = ChatMessage(
                 ref.key!!,
                 messageText,
-                getUid(),
+                senderUid,
                 receiverUid,
                 System.currentTimeMillis()
             )
@@ -96,6 +95,16 @@ class FirebaseHelper {
                 .addOnSuccessListener {
                     Log.d(logTAG, "Saved our chat message: ${ref.key}")
                 }
+
+            // need to create a reverse reference for the other user to view messages as well
+            // so we can chat with ourselves without creating two messages
+            if (senderUid != receiverUid) {
+                val reverseRef = getMessagesRefPush(receiverUid, senderUid)
+                reverseRef.setValue(message)
+                    .addOnSuccessListener {
+                        Log.d(logTAG, "Saved our chat message: ${ref.key}")
+                    }
+            }
         }
 
         fun getUserRef(): DatabaseReference  {
@@ -106,14 +115,13 @@ class FirebaseHelper {
             return FirebaseDatabase.getInstance().getReference("/users/${getUid()}")
         }
 
-        fun getMessagesRef(): DatabaseReference {
-            // push creates a new node in the database /messages/newNodeID
-            return FirebaseDatabase.getInstance().getReference("/messages")
+        fun getMessagesRef(senderUid: String, receiverUid: String): DatabaseReference {
+            return FirebaseDatabase.getInstance().getReference("/user-messages/$senderUid/$receiverUid")
         }
 
-        private fun getMessagesRefPush(): DatabaseReference {
+        private fun getMessagesRefPush(senderUid: String, receiverUid: String): DatabaseReference {
             // push creates a new node in the database /messages/newNodeID
-            return FirebaseDatabase.getInstance().getReference("/messages").push()
+            return FirebaseDatabase.getInstance().getReference("/user-messages/$senderUid/$receiverUid").push()
         }
 
         fun signOut() {

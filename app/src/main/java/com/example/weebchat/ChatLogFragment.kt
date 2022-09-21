@@ -42,25 +42,34 @@ class ChatLogFragment : Fragment() {
 
         setFragmentLabel()
         instantiateChatLog()
+        scrollToBottom()
     }
 
     private fun instantiateChatLog() {
-        val ref = FirebaseHelper.getMessagesRef()
+        val currentUserUid = sharedViewModel.currentUser.value?.uid
+        val otherUserUid = sharedViewModel.otherUser.value?.uid
 
-        // listen for new messages
-        ref.addChildEventListener(object: ChildEventListener {
+        // send to firebase storage
+        if (!currentUserUid.isNullOrEmpty() && !otherUserUid.isNullOrEmpty() ) {
+            val ref = FirebaseHelper.getMessagesRef(currentUserUid, otherUserUid)
 
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                Log.d(logTAG, snapshot.toString())
-                populateAdapter(snapshot)
-            }
+            // listen for new messages
+            ref.addChildEventListener(object: ChildEventListener {
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onChildRemoved(snapshot: DataSnapshot) {}
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {}
-        })
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    Log.d(logTAG, snapshot.toString())
+                    populateAdapter(snapshot)
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onChildRemoved(snapshot: DataSnapshot) {}
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+                override fun onCancelled(error: DatabaseError) {}
+            })
+        }
+
         binding.chatLogRv.adapter = adapter
+        scrollToBottom()
     }
 
     private fun populateAdapter(snapshot: DataSnapshot){
@@ -72,13 +81,13 @@ class ChatLogFragment : Fragment() {
             if (chatMessage.fromId == currentUserUid) {
                 adapter.add(ChatUserItem(text, sharedViewModel.currentUser.value!!))
             } else {
-                adapter.add(ChatOtherItem(text, sharedViewModel.receiver.value!!))
+                adapter.add(ChatOtherItem(text, sharedViewModel.otherUser.value!!))
             }
         }
     }
 
     private fun setFragmentLabel() {
-        val receiverName = sharedViewModel.receiver.value?.name
+        val receiverName = sharedViewModel.otherUser.value?.name
         (activity as AppCompatActivity).supportActionBar?.title =
             receiverName ?: resources.getString(R.string.chat_log_title)
         Log.d(logTAG, "" + receiverName)
@@ -87,14 +96,23 @@ class ChatLogFragment : Fragment() {
     fun sendMessage() {
         // grab message from et
         val messageText = binding.textInput.text.toString()
-        val receiverUid = sharedViewModel.receiver.value?.uid
+        val currentUserUid = sharedViewModel.currentUser.value?.uid
+        val otherUserUid = sharedViewModel.otherUser.value?.uid
 
         // send to firebase storage
-        if (!receiverUid.isNullOrEmpty()) {
-            FirebaseHelper.saveMessage(messageText, receiverUid)
-        }
+        if (!currentUserUid.isNullOrEmpty() && !otherUserUid.isNullOrEmpty() ) {
+            FirebaseHelper.saveMessage(messageText, currentUserUid, otherUserUid)
 
+        }
+        clearMessage()
+        scrollToBottom()
+    }
+
+    private fun clearMessage() {
         binding.textInput.text.clear()
+    }
+
+    private fun scrollToBottom() {
         binding.chatLogRv.scrollToPosition(adapter.itemCount)
     }
 }
