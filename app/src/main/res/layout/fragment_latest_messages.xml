@@ -19,71 +19,31 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/item_margin">
+            android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardViewLeft"
-                    android:layout_width="@dimen/latest_message_icon"
-                    android:layout_height="@dimen/latest_message_icon"
-                    app:cardCornerRadius="40dp"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="@dimen/latest_message_icon"
+                android:text="@string/title"
+                android:textSize="40sp"
+                android:textStyle="bold"
 
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/Light_blue"
-                    app:strokeWidth="2dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/cd_umaru"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/umaru_goggles" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxHeight="@dimen/latest_message_icon"
-                    android:text="@string/title"
-                    android:textSize="40sp"
-
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/materialCardViewLeft"
-                    app:layout_constraintEnd_toStartOf="@id/materialCardViewRight"
-                    app:layout_constraintStart_toEndOf="@+id/materialCardViewLeft"
-                    app:layout_constraintTop_toTopOf="@+id/materialCardViewLeft" />
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardViewRight"
-                    android:layout_width="@dimen/latest_message_icon"
-                    android:layout_height="@dimen/latest_message_icon"
-                    app:cardCornerRadius="40dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/Light_blue"
-                    app:strokeWidth="2dp">
-
-                    <ImageView
-                        android:layout_width="73dp"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/cd_umaru"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/umaru_goggles" />
-
-                </com.google.android.material.card.MaterialCardView>
+                android:layout_marginTop="@dimen/item_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/latest_message_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/new_message_list_item"
+            tools:listitem="@layout/latest_message_list_item"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/banner" />

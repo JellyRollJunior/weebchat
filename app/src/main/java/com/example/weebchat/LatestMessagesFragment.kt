@@ -7,19 +7,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.data.User
 import com.example.weebchat.databinding.FragmentLatestMessagesBinding
 import com.example.weebchat.helpers.FirebaseHelper
+import com.example.weebchat.itemholders.LatestMessageItem
 import com.example.weebchat.model.UserViewModel
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.xwray.groupie.GroupieAdapter
 
 class LatestMessagesFragment : Fragment() {
 
     private val logTag = "Latest Messages Frag"
     private lateinit var binding: FragmentLatestMessagesBinding
     private val sharedViewModel: UserViewModel by activityViewModels()
+    var adapter = GroupieAdapter()
+    val latestMessagesMap = HashMap<String, ChatMessage>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +45,7 @@ class LatestMessagesFragment : Fragment() {
             findNavController().navigate(R.id.action_latestMessagesFragment_to_loginFragment)
         }
         fetchCurrentUser()
+        populateLatestMessages()
     }
 
     private fun fetchCurrentUser() {
@@ -46,15 +53,44 @@ class LatestMessagesFragment : Fragment() {
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val currentUser = snapshot.getValue(User::class.java)
-                if (currentUser != null) {
-                    sharedViewModel.setCurrentUser(currentUser)
-                    Log.d(logTag, "fetched current user data: ${currentUser.profileImageUrl}")
-                }
+                val currentUser = snapshot.getValue(User::class.java) ?: return
+                sharedViewModel.setCurrentUser(currentUser)
+                Log.d(logTag, "fetched current user data: ${currentUser.profileImageUrl}")
             }
 
             override fun onCancelled(error: DatabaseError) {}
         })
+    }
+
+    private fun populateLatestMessages() {
+        val ref = FirebaseHelper.getLatestMessagesRef(FirebaseHelper.getUid())
+        ref.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
+                // key value is the other users UID (the key value for the message in firebase database)
+                latestMessagesMap[snapshot.key!!] = chatMessage
+                refreshRecyclerView()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
+                latestMessagesMap[snapshot.key!!] = chatMessage
+                refreshRecyclerView()
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
+        binding.latestMessageRv.adapter = adapter
+    }
+
+    private fun refreshRecyclerView() {
+        adapter.clear()
+        latestMessagesMap.values.forEach {
+            adapter.add(LatestMessageItem(it))
+        }
+        binding.latestMessageRv.adapter = adapter
     }
 
     // app bar

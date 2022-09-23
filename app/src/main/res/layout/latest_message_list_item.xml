@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="86dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profile_card_view"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/item_margin"
+        android:layout_marginTop="@dimen/item_margin"
+        app:cardCornerRadius="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:strokeColor="@color/Light_blue"
+        app:strokeWidth="2dp">
+
+        <ImageView
+            android:id="@+id/profile_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/cd_profile_photo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/umaru_goggles" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/latest_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Umaru Doma"
+        android:textSize="@dimen/item_text_size"
+        android:textStyle="bold"
+
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toStartOf="@+id/latest_message_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/latest_message_text_view"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:textSize="@dimen/latest_message_text_size"
+        android:textStyle="bold"
+        tools:text="HEY UMARU GET UP YOU LAZY FUCK STOP GORO GORO - ING AROUND"
+
+        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profile_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/latest_name_text_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

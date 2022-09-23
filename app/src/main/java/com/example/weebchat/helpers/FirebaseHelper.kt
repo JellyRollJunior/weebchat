@@ -95,6 +95,8 @@ class FirebaseHelper {
                 .addOnSuccessListener {
                     Log.d(logTAG, "Saved our chat message: ${ref.key}")
                 }
+            // save latest message for retrieval in latest messages fragment
+            saveLatestMessage(message, senderUid, receiverUid)
 
             // need to create a reverse reference for the other user to view messages as well
             // so we can chat with ourselves without creating two messages
@@ -104,7 +106,16 @@ class FirebaseHelper {
                     .addOnSuccessListener {
                         Log.d(logTAG, "Saved our chat message: ${ref.key}")
                     }
+                saveLatestMessage(message, receiverUid, senderUid)
             }
+        }
+
+        private fun saveLatestMessage(message: ChatMessage, senderUid: String, receiverUid: String) {
+            val ref = getLatestMessageRef(senderUid, receiverUid)
+            ref.setValue(message)
+                .addOnSuccessListener {
+                    Log.d(logTAG, "Saved latest message: ${ref.key}")
+                }
         }
 
         fun getUserRef(): DatabaseReference  {
@@ -122,6 +133,15 @@ class FirebaseHelper {
         private fun getMessagesRefPush(senderUid: String, receiverUid: String): DatabaseReference {
             // push creates a new node in the database /messages/newNodeID
             return FirebaseDatabase.getInstance().getReference("/user-messages/$senderUid/$receiverUid").push()
+        }
+
+        private fun getLatestMessageRef(senderUid: String, receiverUid: String): DatabaseReference {
+            return FirebaseDatabase.getInstance().getReference("/latest-messages/$senderUid/$receiverUid")
+        }
+
+        fun getLatestMessagesRef(uid: String): DatabaseReference {
+            Log.d(logTAG, "/latest-messages/$uid")
+            return FirebaseDatabase.getInstance().getReference("/latest-messages/$uid")
         }
 
         fun signOut() {

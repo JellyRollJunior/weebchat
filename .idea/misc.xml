@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.20697463768115942" />
         <entry key="app/src/main/res/layout/fragment_new_message.xml" value="0.22644927536231885" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.20697463768115942" />
+        <entry key="app/src/main/res/layout/latest_message_list_item.xml" value="0.3390625" />
         <entry key="app/src/main/res/layout/new_message_list_item.xml" value="0.375" />
         <entry key="app/src/main/res/menu/layout_menu.xml" value="0.3098958333333333" />
       </map>
