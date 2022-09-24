@@ -10,9 +10,17 @@ weebchat allows you to message anyone else with a weebchat account by simply:
 
 ## Project Screen Shot(s)
 
-| Chatting | Sign Up | Log In  | Sign Out |
-| ------------- | ------------- | ------------- | ------------- |
-| ![weebchat - chatting](https://user-images.githubusercontent.com/44827002/192120511-55e4f864-f7f7-4994-b5c9-b8716b5ecb46.mov) | ------------- | ------------- | ------------- |
+| Chatting | 
+| ------------- |
+| ![test](https://user-images.githubusercontent.com/44827002/192121280-9985dde1-a1ca-46bb-aa47-c9b062ed9d00.mov) | 
+
+| Sign Up | Log In  | Sign Out |
+|------------- | ------------- | ------------- |
+|![weebchat - sign up](https://user-images.githubusercontent.com/44827002/192121551-665e1482-7e37-48d9-ab5e-1b6205e634f2.mov) | ![weebchat - sign in](https://user-images.githubusercontent.com/44827002/192121474-f09eae67-1e47-42ca-9b1e-b595ba606c1b.mov) | ![weebchat - sign out](https://user-images.githubusercontent.com/44827002/192121519-95b30db9-5103-4bf9-88d4-0d3b1e7728cc.mov) |
+
+| Nav Graph |
+| --------- |
+| <img width="802" alt="Screen Shot 2022-09-24 at 3 08 50 PM" src="https://user-images.githubusercontent.com/44827002/192121621-750238b1-ded2-4ebe-8fde-cf3d5610417c.png"> |
 
 ## Reflection
 
