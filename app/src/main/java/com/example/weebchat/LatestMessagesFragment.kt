@@ -50,7 +50,6 @@ class LatestMessagesFragment : Fragment() {
         }
         fetchCurrentUser()
         populateLatestMessages()
-        setRecyclerViewListener()
         decorateRecyclerView()
     }
 
@@ -76,22 +75,25 @@ class LatestMessagesFragment : Fragment() {
                 // key value is the other users UID (the key value for the message in firebase database)
                 latestMessagesMap[snapshot.key!!] = chatMessage
                 refreshRecyclerView()
+                setRecyclerViewListener()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
                 latestMessagesMap[snapshot.key!!] = chatMessage
                 refreshRecyclerView()
+                setRecyclerViewListener()
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onCancelled(error: DatabaseError) {}
         })
+        setRecyclerViewListener()
         binding.latestMessageRv.adapter = adapter
     }
 
-    private fun setRecyclerViewListener() {
+    fun setRecyclerViewListener() {
         adapter.setOnItemClickListener { item, _ ->
             val latestMessageItem = item as LatestMessageItem
             sharedViewModel.setReceiver(latestMessageItem.user!!)

@@ -51,6 +51,7 @@ class NewMessageFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val adapter = populateAdapterWithUsers(snapshot)
                 setRecyclerViewClickListener(adapter)
+                setRecyclerViewClickListener(adapter)
                 binding.newMessageRv.adapter = adapter
             }
 
@@ -59,7 +60,7 @@ class NewMessageFragment : Fragment() {
         })
     }
 
-    private fun setRecyclerViewClickListener(adapter: GroupieAdapter) {
+    fun setRecyclerViewClickListener(adapter: GroupieAdapter) {
         adapter.setOnItemClickListener { item, _ ->
 
             val userItem = item as UserItem
