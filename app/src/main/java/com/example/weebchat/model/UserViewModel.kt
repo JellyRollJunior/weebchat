@@ -5,6 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weebchat.data.User
 
+/**
+ * Stores current user data and chat recipient user data
+ *     -> Data is fetched in LatestMessagesFragment so do not use ViewModel in LatestMessagesFragment
+ *     -> Or else null data may occur
+ *     -> Just use Firebase commands to get data
+ */
 class UserViewModel : ViewModel() {
 
     private val _currentUser = MutableLiveData<User>()

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.data.User
 import com.example.weebchat.databinding.FragmentLatestMessagesBinding
@@ -21,18 +20,21 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupieAdapter
 
+/**
+ * Fragment which displays conversations between users
+ */
 class LatestMessagesFragment : Fragment() {
 
     private val logTag = "Latest Messages Frag"
     private lateinit var binding: FragmentLatestMessagesBinding
     private val sharedViewModel: UserViewModel by activityViewModels()
-    var adapter = GroupieAdapter()
-    val latestMessagesMap = HashMap<String, ChatMessage>()
+    private var adapter = GroupieAdapter()
+    private val latestMessagesMap = HashMap<String, ChatMessage>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_latest_messages, container, false)
         return binding.root
@@ -47,22 +49,9 @@ class LatestMessagesFragment : Fragment() {
             findNavController().navigate(R.id.action_latestMessagesFragment_to_loginFragment)
         }
         fetchCurrentUser()
-
-        // TODO: set on click listener for rv
-        adapter.setOnItemClickListener { item, _ ->
-
-            val latestMessageItem = item as LatestMessageItem
-            sharedViewModel.setReceiver(latestMessageItem.user!!)
-            findNavController().navigate(R.id.action_latestMessagesFragment_to_chatLogFragment)
-        }
-
-        binding.latestMessageRv.addItemDecoration(DividerItemDecoration(
-            requireContext(), DividerItemDecoration.VERTICAL
-        ))
-
-
-
         populateLatestMessages()
+        setRecyclerViewListener()
+        decorateRecyclerView()
     }
 
     private fun fetchCurrentUser() {
@@ -102,12 +91,26 @@ class LatestMessagesFragment : Fragment() {
         binding.latestMessageRv.adapter = adapter
     }
 
+    private fun setRecyclerViewListener() {
+        adapter.setOnItemClickListener { item, _ ->
+            val latestMessageItem = item as LatestMessageItem
+            sharedViewModel.setReceiver(latestMessageItem.user!!)
+            findNavController().navigate(R.id.action_latestMessagesFragment_to_chatLogFragment)
+        }
+    }
+
     private fun refreshRecyclerView() {
         adapter.clear()
         latestMessagesMap.values.forEach {
             adapter.add(LatestMessageItem(it))
         }
         binding.latestMessageRv.adapter = adapter
+    }
+
+    private fun decorateRecyclerView() {
+        binding.latestMessageRv.addItemDecoration(DividerItemDecoration(
+            requireContext(), DividerItemDecoration.VERTICAL
+        ))
     }
 
     // app bar

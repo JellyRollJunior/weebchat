@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.weebchat.databinding.FragmentLoginBinding
 import com.example.weebchat.helpers.FirebaseHelper
 
+/**
+ * Fragment for logging user into weebchat
+ */
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
@@ -18,7 +21,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         return binding.root

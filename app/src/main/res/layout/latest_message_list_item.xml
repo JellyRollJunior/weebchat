@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/cd_profile_photo"
             android:scaleType="centerCrop"
-            android:src="@drawable/umaru_goggles" />
+            tools:src="@drawable/umaru_goggles" />
 
     </com.google.android.material.card.MaterialCardView>
 

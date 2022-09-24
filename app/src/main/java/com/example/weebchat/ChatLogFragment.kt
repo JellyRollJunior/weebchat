@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.databinding.FragmentChatLogBinding
 import com.example.weebchat.helpers.FirebaseHelper
@@ -21,6 +20,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.xwray.groupie.GroupieAdapter
 
+/**
+ * Fragment which displays chat messages between current user and recipient
+ */
 class ChatLogFragment : Fragment() {
 
     private val logTAG = "Chat Log Fragment"
@@ -31,7 +33,7 @@ class ChatLogFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_chat_log, container, false)
         return binding.root
@@ -59,7 +61,7 @@ class ChatLogFragment : Fragment() {
 
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     Log.d(logTAG, snapshot.toString())
-                    populateAdapter(snapshot)
+                    populateAdapterWithMessages(snapshot)
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
@@ -71,7 +73,7 @@ class ChatLogFragment : Fragment() {
         binding.chatLogRv.adapter = adapter
     }
 
-    private fun populateAdapter(snapshot: DataSnapshot){
+    private fun populateAdapterWithMessages(snapshot: DataSnapshot){
         val chatMessage = snapshot.getValue(ChatMessage::class.java)
         val currentUserUid = FirebaseHelper.getUid()
         val text = chatMessage?.text
@@ -103,14 +105,13 @@ class ChatLogFragment : Fragment() {
             // send to firebase storage
             if (!currentUserUid.isNullOrEmpty() && !otherUserUid.isNullOrEmpty()) {
                 FirebaseHelper.saveMessage(messageText, currentUserUid, otherUserUid)
-
             }
         }
-        clearMessage()
+        clearEditText()
         scrollToBottom()
     }
 
-    private fun clearMessage() {
+    private fun clearEditText() {
         binding.textInput.text.clear()
     }
 

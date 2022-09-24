@@ -19,6 +19,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupieAdapter
 
+/**
+ * Fragment for creating a new chat log with a user
+ */
 class NewMessageFragment : Fragment() {
 
     private val logTAG = "New Message Fragment"
@@ -28,7 +31,7 @@ class NewMessageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_message, container, false)
         return binding.root
@@ -46,13 +49,8 @@ class NewMessageFragment : Fragment() {
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val adapter = populateAdapter(snapshot)
-                adapter.setOnItemClickListener { item, _ ->
-
-                    val userItem = item as UserItem
-                    sharedViewModel.setReceiver(userItem.user)
-                    findNavController().navigate(R.id.action_newMessageFragment_to_chatLogFragment)
-                }
+                val adapter = populateAdapterWithUsers(snapshot)
+                setRecyclerViewClickListener(adapter)
                 binding.newMessageRv.adapter = adapter
             }
 
@@ -61,7 +59,16 @@ class NewMessageFragment : Fragment() {
         })
     }
 
-    private fun populateAdapter(snapshot: DataSnapshot): GroupieAdapter {
+    private fun setRecyclerViewClickListener(adapter: GroupieAdapter) {
+        adapter.setOnItemClickListener { item, _ ->
+
+            val userItem = item as UserItem
+            sharedViewModel.setReceiver(userItem.user)
+            findNavController().navigate(R.id.action_newMessageFragment_to_chatLogFragment)
+        }
+    }
+
+    private fun populateAdapterWithUsers(snapshot: DataSnapshot): GroupieAdapter {
         val adapter = GroupieAdapter()
         for (child in snapshot.children) {
             Log.d(logTAG, child.toString())

@@ -8,6 +8,9 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
+/**
+ * Chat log recycler view item for a message sent from current user
+ */
 class ChatUserItem(val text: String, private val user: User) : Item<GroupieViewHolder>() {
 
     override fun getLayout() = R.layout.chat_user_row

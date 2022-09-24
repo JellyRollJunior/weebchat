@@ -16,7 +16,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.weebchat.databinding.FragmentSignupBinding
 import com.example.weebchat.helpers.FirebaseHelper
 
-
+/**
+ * Fragment for signing user up to weebchat
+ */
 class SignupFragment : Fragment() {
 
     private val logTAG = "Signup Fragment"
@@ -26,7 +28,7 @@ class SignupFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
         return binding.root

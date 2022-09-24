@@ -13,6 +13,9 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
+/**
+ * Recycler view item for Latest Message Recycler View
+ */
 class LatestMessageItem(private val message: ChatMessage) : Item<GroupieViewHolder>() {
 
     var user: User? = null

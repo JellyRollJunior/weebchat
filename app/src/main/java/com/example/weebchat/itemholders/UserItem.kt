@@ -8,6 +8,9 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
+/**
+ * Recycler view list item for users in NEW MESSAGE FRAGMENT
+ */
 class UserItem(val user: User) : Item<GroupieViewHolder>() {
 
     override fun getLayout() = R.layout.new_message_list_item
@@ -17,5 +20,4 @@ class UserItem(val user: User) : Item<GroupieViewHolder>() {
         Picasso.get().load(user.profileImageUrl)
             .into(viewHolder.itemView.findViewById<ImageView>(R.id.profile_image_view))
     }
-
 }

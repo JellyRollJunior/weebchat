@@ -11,6 +11,9 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
+/**
+ * Helper class which performs Firebase operations
+ */
 class FirebaseHelper {
 
     companion object {
