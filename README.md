@@ -33,12 +33,6 @@ This app is based on Kotlin Messenger app by Let's Build That App with a couple 
 
 This was my first experience using Firebase and honestly, it was a lot more straightforward than I thought. 
 This is a very powerful tool :) that makes backend a lot more simple.
-
-## Key Learnings/Relearnings: 
-
-## Obstacles 
-  
-## Improvements + Additional thoughts 
  
 ## External libraries:
 
