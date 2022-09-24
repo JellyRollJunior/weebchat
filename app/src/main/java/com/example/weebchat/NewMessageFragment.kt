@@ -47,7 +47,7 @@ class NewMessageFragment : Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val adapter = populateAdapter(snapshot)
-                adapter.setOnItemClickListener { item, view ->
+                adapter.setOnItemClickListener { item, _ ->
 
                     val userItem = item as UserItem
                     sharedViewModel.setReceiver(userItem.user)

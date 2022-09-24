@@ -118,8 +118,12 @@ class FirebaseHelper {
                 }
         }
 
-        fun getUserRef(): DatabaseReference  {
+        fun getUserRef(): DatabaseReference {
             return FirebaseDatabase.getInstance().getReference("/users")
+        }
+
+        fun getUserRef(uid: String): DatabaseReference {
+            return FirebaseDatabase.getInstance().getReference("/users/$uid")
         }
 
         fun getCurrentUserRef(): DatabaseReference {

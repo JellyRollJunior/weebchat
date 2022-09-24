@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weebchat.data.ChatMessage
 import com.example.weebchat.data.User
 import com.example.weebchat.databinding.FragmentLatestMessagesBinding
@@ -45,6 +47,21 @@ class LatestMessagesFragment : Fragment() {
             findNavController().navigate(R.id.action_latestMessagesFragment_to_loginFragment)
         }
         fetchCurrentUser()
+
+        // TODO: set on click listener for rv
+        adapter.setOnItemClickListener { item, _ ->
+
+            val latestMessageItem = item as LatestMessageItem
+            sharedViewModel.setReceiver(latestMessageItem.user!!)
+            findNavController().navigate(R.id.action_latestMessagesFragment_to_chatLogFragment)
+        }
+
+        binding.latestMessageRv.addItemDecoration(DividerItemDecoration(
+            requireContext(), DividerItemDecoration.VERTICAL
+        ))
+
+
+
         populateLatestMessages()
     }
 

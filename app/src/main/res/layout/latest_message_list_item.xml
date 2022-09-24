@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="86dp">
+    android:layout_height="102dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/profile_card_view"
+        android:id="@+id/latest_card_view"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="@dimen/item_margin"
@@ -19,7 +19,7 @@
         app:strokeWidth="2dp">
 
         <ImageView
-            android:id="@+id/profile_image_view"
+            android:id="@+id/latest_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/cd_profile_photo"
@@ -53,7 +53,7 @@
         android:layout_marginEnd="@dimen/base_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/profile_card_view"
+        app:layout_constraintStart_toEndOf="@+id/latest_card_view"
         app:layout_constraintTop_toBottomOf="@+id/latest_name_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
