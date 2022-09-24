@@ -10,6 +10,10 @@ weebchat allows you to message anyone else with a weebchat account by simply:
 
 ## Project Screen Shot(s)
 
+| Chatting | Sign Up | Log In  | Sign Out |
+| ------------- | ------------- | ------------- | ------------- |
+| ![weebchat - chatting](https://user-images.githubusercontent.com/44827002/192120511-55e4f864-f7f7-4994-b5c9-b8716b5ecb46.mov) | ------------- | ------------- | ------------- |
+
 ## Reflection
 
 This app is based on Kotlin Messenger app by Let's Build That App with a couple of key improvements which include:
